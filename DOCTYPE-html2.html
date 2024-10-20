@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ćwiczenie Tabliczki Mnożenia</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f8ff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 300px;
+        }
+        h1 {
+            color: #333;
+        }
+        .equation {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        .pinpad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .pinpad button {
+            padding: 15px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+            cursor: pointer;
+        }
+        .pinpad button:active {
+            background-color: #45a049;
+        }
+        .answer-display {
+            margin: 15px 0;
+            font-size: 20px;
+        }
+        .result {
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .next-task {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #ff5722;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .next-task:hover {
+            background-color: #e64a19;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Ćwiczenie Mnożenia</h1>
+        <div class="equation" id="equation">5 × 3</div>
+        <div class="answer-display" id="answerDisplay"></div>
+        <div class="pinpad">
+            <button onclick="enterNumber(1)">1</button>
+            <button onclick="enterNumber(2)">2</button>
+            <button onclick="enterNumber(3)">3</button>
+            <button onclick="enterNumber(4)">4</button>
+            <button onclick="enterNumber(5)">5</button>
+            <button onclick="enterNumber(6)">6</button>
+            <button onclick="enterNumber(7)">7</button>
+            <button onclick="enterNumber(8)">8</button>
+            <button onclick="enterNumber(9)">9</button>
+            <button onclick="clearAnswer()">C</button>
+            <button onclick="enterNumber(0)">0</button>
+            <button onclick="checkAnswer()">OK</button>
+        </div>
+        <div class="result" id="result"></div>
+        <button class="next-task" onclick="generateTask()">Następne zadanie</button>
+    </div>
+
+    <script>
+        let num1, num2, correctAnswer;
+        const equationElement = document.getElementById("equation");
+        const answerDisplayElement = document.getElementById("answerDisplay");
+        const resultElement = document.getElementById("result");
+        let userAnswer = '';
+
+        // Funkcja generująca nowe zadanie
+        function generateTask() {
+            num1 = Math.floor(Math.random() * 10) + 1;
+            num2 = Math.floor(Math.random() * 10) + 1;
+            correctAnswer = num1 * num2;
+            equationElement.textContent = `${num1} × ${num2}`;
+            answerDisplayElement.textContent = '';
+            resultElement.textContent = '';
+            userAnswer = '';
+        }
+
+        // Funkcja do wpisywania liczb przez pinpad
+        function enterNumber(number) {
+            userAnswer += number;
+            answerDisplayElement.textContent = userAnswer;
+        }
+
+        // Funkcja czyszcząca odpowiedź
+        function clearAnswer() {
+            userAnswer = '';
+            answerDisplayElement.textContent = userAnswer;
+        }
+
+        // Funkcja sprawdzająca poprawność odpowiedzi
+        function checkAnswer() {
+            if (parseInt(userAnswer) === correctAnswer) {
+                resultElement.textContent = "Brawo! Poprawna odpowiedź!";
+                resultElement.style.color = "green";
+            } else {
+                resultElement.textContent = "Niestety, spróbuj ponownie.";
+                resultElement.style.color = "red";
+            }
+        }
+
+        // Inicjalne zadanie
+        generateTask();
+    </script>
+</body>
+</html>
